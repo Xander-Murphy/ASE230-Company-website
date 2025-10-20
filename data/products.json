@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Celestial VR™",
+    "description": "A virtual reality platform offering hyper-realistic experiences, from serene walks on Mars to diving into the Marianas Trench, all from the comfort of your living room.",
+    "applications": ["Educational Suites", "Adventure Modules", "Therapeutic Landscapes"]
+  },
+  {
+    "name": "Luminara Glasses™",
+    "description": "Lightweight AR glasses that overlay digital information on the real world. Users can seamlessly interact with virtual objects, get real-time data overlays, or even project a movie onto any wall.",
+    "applications": ["Educational Suites", "Adventure Modules", "Therapeutic Landscapes"]
+  },
+  {
+    "name": "QuantNet™",
+    "description": "The world's first accessible quantum computer service for businesses. It promises computations at speeds previously deemed impossible, ideal for industries like finance, healthcare, and space exploration.",
+    "applications": ["Educational Suites", "Adventure Modules", "Therapeutic Landscapes"]
+  },
+  {
+    "name": "Nebula Academy™",
+    "description": "A global online institution teaching the next generation about AR, VR, and quantum computing. It offers courses from beginner to advanced levels and provides certification recognized worldwide",
+    "applications": ["Educational Suites", "Adventure Modules", "Therapeutic Landscapes"]
+  }
+]

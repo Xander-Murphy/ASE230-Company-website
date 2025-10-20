@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Dr. Evelyn Hart",
+    "title": "Founder & CEO",
+    "background": "Double doctorate in Quantum Physics and Neural Engineering from MIT. Published first paper at 15. Recognized as one of the top 100 influential leaders in technology."
+  },
+  {
+    "name": "Rajan Malhotra",
+    "title": "CTO",
+    "background": "Software architect previously at leading tech giants. Leads technological advancements at Starluxe."
+  },
+  {
+    "name": "Lila Torres",
+    "title": "Chief of Design",
+    "background": "Graduate from the Royal College of Art. Merges art with technology for sleek and user-friendly products."
+  },
+  {
+    "name": "Samuel Ogundipe",
+    "title": "VP of Operations",
+    "background": "Expert in global logistics and operations. Ensures smooth production and distribution."
+  },
+  {
+    "name": "Nina Zhang",
+    "title": "Head of Nebula Academy",
+    "background": "Former Harvard professor. Oversees curriculum development and delivery worldwide."
+  }
+]
