@@ -1,4 +1,8 @@
 
+<?php
+    require_once __DIR__ . '/../lib/jsonReader.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -425,8 +429,8 @@
                                 </ul>
                             </div>
                             <div class="p-4">
-                                <h5 class="font-size-19 mb-1">Frances Thompson</h5>
-                                <p class="text-muted text-uppercase font-size-14 mb-0">Developer</p>
+                                <h5 class="font-size-19 mb-1"><?php echoFieldFromTeams('../data/team.json',0, 'name');?></h5>
+                                <p class="text-muted text-uppercase font-size-14 mb-0"><?php echoFieldFromTeams('../data/team.json',0, 'title');?></p>
                             </div>
                         </div>
                     </div>
@@ -449,8 +453,8 @@
                                 </ul>
                             </div>
                             <div class="p-4">
-                                <h5 class="font-size-19 mb-1">John Jones</h5>
-                                <p class="text-muted text-uppercase font-size-14 mb-0">Ceo</p>
+                                <h5 class="font-size-19 mb-1"><?php echoFieldFromTeams('../data/team.json',1, 'name');?></h5>
+                                <p class="text-muted text-uppercase font-size-14 mb-0"><?php echoFieldFromTeams('../data/team.json',1, 'title');?></p>
                             </div>
                         </div>
                     </div>
@@ -473,8 +477,8 @@
                                 </ul>
                             </div>
                             <div class="p-4">
-                                <h5 class="font-size-19 mb-1">Della Hobbs</h5>
-                                <p class="text-muted text-uppercase font-size-14 mb-0">Designer</p>
+                                <h5 class="font-size-19 mb-1"><?php echoFieldFromTeams('../data/team.json',2, 'name');?></h5>
+                                <p class="text-muted text-uppercase font-size-14 mb-0"><?php echoFieldFromTeams('../data/team.json',2, 'title');?></p>
                             </div>
                         </div>
                     </div>
@@ -497,8 +501,8 @@
                                 </ul>
                             </div>
                             <div class="p-4">
-                                <h5 class="font-size-19 mb-1">Troy Jordon</h5>
-                                <p class="text-muted text-uppercase font-size-14 mb-0">Developer</p>
+                                <h5 class="font-size-19 mb-1"><?php echoFieldFromTeams('../data/team.json',3, 'name');?></h5>
+                                <p class="text-muted text-uppercase font-size-14 mb-0"><?php echoFieldFromTeams('../data/team.json',3, 'title');?></p>
                             </div>
                         </div>
                     </div>
