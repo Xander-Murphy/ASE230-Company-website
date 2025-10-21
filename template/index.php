@@ -1,6 +1,8 @@
 
 <?php
     require_once __DIR__ . '/../lib/jsonReader.php';
+    $team = '../data/team.json';
+    $products = '../data/products.json';
 ?>
 
 <!DOCTYPE html>
@@ -263,7 +265,7 @@
                         <div class="tab-content" id="pricingpills-tabContent">
                             <div class="tab-pane fade show active" id="pills-monthly" role="tabpanel" aria-labelledby="pills-monthly-tab">
                                 <div class="row">
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <div class="card plan-card mt-4 rounded text-center border-0 shadow overflow-hidden">
                                             <div class="card-body px-4 py-5">
                                                 <!-- <div class="icon-mono avatar-md bg-soft-primary text-primary rounded mx-auto mb-5"><i class="icon-lg" data-feather="circle"></i></div> -->
@@ -281,7 +283,7 @@
                                         </div>
                                     </div>
                                     <!-- end col -->
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <div class="card plan-card mt-4 rounded text-center border-0 shadow overflow-hidden">
                                             <div class="card-body px-4 py-5">
                                                 <span class="badge badge-primary pricing-badge shadow-lg">Most Popular</span>
@@ -300,7 +302,25 @@
                                         </div>
                                     </div>
                                     <!-- end col -->
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
+                                        <div class="card plan-card mt-4 rounded text-center border-0 shadow overflow-hidden">
+                                            <div class="card-body px-4 py-5">
+                                                <!-- <div class="icon-mono avatar-md bg-soft-primary text-primary rounded mx-auto mb-5"><i class="icon-lg" data-feather="triangle"></i></div> -->
+                                                <div class="icon-mono avatar-md bg-soft-primary rounded mx-auto mb-5 p-3">
+                                                    <img src="images/pricing/3.png" alt="" class="img-fluid d-block mx-auto" />
+                                                </div>
+                                                <h4 class="text-uppercase mb-4 pb-1">Premium</h4>
+                                                <p class="text-muted">Onlinespace: <span class="fw-bold">200MB</span></p>
+                                                <p class="text-muted">Support: <span class="fw-bold">No</span></p>
+                                                <p class="text-muted mb-4 pb-1">Domain 1</p>
+                                                <p class="text-muted font-size-14 mb-1">All Extension Included</p>
+                                                <p class="font-size-16 font-weight-semibold mb-4 price-tag">$79.00 / Month</p>
+                                                <a href="javascript: void(0);" class="btn btn-soft-primary">Buy Now</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end col -->
+                                    <div class="col-lg-3">
                                         <div class="card plan-card mt-4 rounded text-center border-0 shadow overflow-hidden">
                                             <div class="card-body px-4 py-5">
                                                 <!-- <div class="icon-mono avatar-md bg-soft-primary text-primary rounded mx-auto mb-5"><i class="icon-lg" data-feather="triangle"></i></div> -->
@@ -325,7 +345,7 @@
 
                             <div class="tab-pane fade" id="pills-yearly" role="tabpanel" aria-labelledby="pills-yearly-tab">
                                 <div class="row">
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <div class="card plan-card mt-4 rounded text-center border-0 shadow overflow-hidden">
                                             <div class="card-body px-4 py-5">
                                                 <!-- <div class="icon-mono avatar-md bg-soft-primary text-primary rounded mx-auto mb-5"><i class="icon-lg" data-feather="circle"></i></div> -->
@@ -345,7 +365,7 @@
                                         <!-- end card -->
                                     </div>
                                     <!-- end col -->
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <div class="card plan-card mt-4 rounded text-center border-0 shadow overflow-hidden">
                                             <div class="card-body px-4 py-5">
                                                 <!-- <div class="icon-mono avatar-md bg-soft-primary text-primary rounded mx-auto mb-5"><i class="icon-lg" data-feather="square"></i></div> -->
@@ -365,7 +385,7 @@
                                         <!-- end card -->
                                     </div>
                                     <!-- end col -->
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <div class="card plan-card mt-4 rounded text-center border-0 shadow overflow-hidden">
                                             <div class="card-body px-4 py-5">
                                                 <span class="badge badge-primary pricing-badge shadow-lg">Most Popular</span>
@@ -386,6 +406,7 @@
                                         <!-- end card -->
                                     </div>
                                     <!-- end col -->
+                                     
                                 </div>
                             </div>
                             <!-- end yearly tab pane -->
@@ -429,8 +450,8 @@
                                 </ul>
                             </div>
                             <div class="p-4">
-                                <h5 class="font-size-19 mb-1"><?php echoFieldFromTeams('../data/team.json',0, 'name');?></h5>
-                                <p class="text-muted text-uppercase font-size-14 mb-0"><?php echoFieldFromTeams('../data/team.json',0, 'title');?></p>
+                                <h5 class="font-size-19 mb-1"><?php echoFieldFromTeams($team,0, 'name');?></h5>
+                                <p class="text-muted text-uppercase font-size-14 mb-0"><?php echoFieldFromTeams($team,0, 'title');?></p>
                             </div>
                         </div>
                     </div>
@@ -453,8 +474,8 @@
                                 </ul>
                             </div>
                             <div class="p-4">
-                                <h5 class="font-size-19 mb-1"><?php echoFieldFromTeams('../data/team.json',1, 'name');?></h5>
-                                <p class="text-muted text-uppercase font-size-14 mb-0"><?php echoFieldFromTeams('../data/team.json',1, 'title');?></p>
+                                <h5 class="font-size-19 mb-1"><?php echoFieldFromTeams($team,1, 'name');?></h5>
+                                <p class="text-muted text-uppercase font-size-14 mb-0"><?php echoFieldFromTeams($team,1, 'title');?></p>
                             </div>
                         </div>
                     </div>
@@ -477,8 +498,8 @@
                                 </ul>
                             </div>
                             <div class="p-4">
-                                <h5 class="font-size-19 mb-1"><?php echoFieldFromTeams('../data/team.json',2, 'name');?></h5>
-                                <p class="text-muted text-uppercase font-size-14 mb-0"><?php echoFieldFromTeams('../data/team.json',2, 'title');?></p>
+                                <h5 class="font-size-19 mb-1"><?php echoFieldFromTeams($team,2, 'name');?></h5>
+                                <p class="text-muted text-uppercase font-size-14 mb-0"><?php echoFieldFromTeams($team,2, 'title');?></p>
                             </div>
                         </div>
                     </div>
@@ -501,8 +522,8 @@
                                 </ul>
                             </div>
                             <div class="p-4">
-                                <h5 class="font-size-19 mb-1"><?php echoFieldFromTeams('../data/team.json',3, 'name');?></h5>
-                                <p class="text-muted text-uppercase font-size-14 mb-0"><?php echoFieldFromTeams('../data/team.json',3, 'title');?></p>
+                                <h5 class="font-size-19 mb-1"><?php echoFieldFromTeams($team,3, 'name');?></h5>
+                                <p class="text-muted text-uppercase font-size-14 mb-0"><?php echoFieldFromTeams($team,3, 'title');?></p>
                             </div>
                         </div>
                     </div>
