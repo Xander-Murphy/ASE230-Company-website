@@ -1,20 +1,21 @@
 <?php
-    function readCSV($filename) {
+    function readCSV($filepath) {
 
         echo "<html><body><center><table>\n\n";
 
-        if(!file_exists($filename)) {
+        if(!file_exists($filepath)) {
             echo "File not found";
             return;
         }
         
-        $file = fopen($filename, "r");
+        $file = fopen($filepath, "r");
         while (($data = fgetcsv($file)) !== false) {
 
             echo "<tr>";
             foreach ($data as $i) {
-                echo "<td>" . htmlspecialchars($i) 
-                    . "</td>";
+                if($i != "Year" && $i != "Award" && $i != "Details"){
+                    echo "<td class='p-3'>" . htmlspecialchars($i) . "</td>";
+                }
             }
             echo "</tr> \n";
         }
