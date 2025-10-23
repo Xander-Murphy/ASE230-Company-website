@@ -1,4 +1,6 @@
-
+<?php
+include("../lib/plaintextReader.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -214,6 +216,15 @@
             <!-- end container -->
         </section>
         <!-- Features end -->
+
+        	<section class="section bg-light" id="overview">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-4">Company Overview</h2>
+    <div class="text-muted w-75 mx-auto">
+      <?php echo readPlainText("../data/overview.txt"); ?>
+    </div>
+  </div>
+</section>
 
         <section class="section bg-gradient-primary">
             <div class="bg-overlay-img" style="background-image: url(images/demos.png);"></div>
