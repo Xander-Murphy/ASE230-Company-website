@@ -5,6 +5,9 @@
     $products = '../data/products.json';
 ?>
 
+<?php
+include("../lib/plaintextReader.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -84,8 +87,8 @@
                     <div class="col-lg-8">
                         <div class="text-center">
                             <span class="badge badge-soft-primary mb-4">Professional Landing</span>
-                            <h1 class="font-weight-semibold mb-4 hero-3-title">Professional, Multipurpose Landing Page</h1>
-                            <p class="mb-5 text-muted subtitle w-75 mx-auto">Nemo enim ipsam voluptatem quia voluptas sit aut aspernatur aut fugit sed consequuntur magni dolores nesciunt.</p>
+                            <h1 class="font-weight-semibold mb-4 hero-3-title">Company Overview</h1>
+                            <p class="mb-5 text-muted subtitle w-100 mx-auto"><?php echo readPlainText("../data/overview.txt"); ?></p>
                             
                             <div>
                                 <button type="button" class="btn btn-primary rounded-pill me-2">Sign up for free</button>
@@ -220,7 +223,6 @@
             <!-- end container -->
         </section>
         <!-- Features end -->
-
         <section class="section bg-gradient-primary">
             <div class="bg-overlay-img" style="background-image: url(images/demos.png);"></div>
             <div class="container">
