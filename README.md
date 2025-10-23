@@ -11,4 +11,5 @@
 
 
 ***Jarred Engleman***
-- 
+- creation of plaintextReader file and functions
+- implementation of readPlainText functions into index.php
