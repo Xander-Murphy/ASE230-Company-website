@@ -1,7 +1,5 @@
 <?php
-    function readCSV($filepath) {
-
-        echo "<html><body><center><table>\n\n";
+    function readCSV($filepath, $col, $row) {
 
         if(!file_exists($filepath)) {
             echo "File not found";
@@ -9,19 +7,20 @@
         }
         
         $file = fopen($filepath, "r");
+        $currentRow = 0;
+        
         while (($data = fgetcsv($file)) !== false) {
 
-            echo "<tr>";
-            foreach ($data as $i) {
-                if($i != "Year" && $i != "Award" && $i != "Details"){
-                    echo "<td class='p-3'>" . htmlspecialchars($i) . "</td>";
-                }
+            if ($currentRow == $row) {
+                fclose($file);
+                
+                return $data[$col];
+
             }
-            echo "</tr> \n";
+            $currentRow++;
         }
 
         fclose($file);
 
-        echo "\n</table></center></body></html>";
     }
 ?>
