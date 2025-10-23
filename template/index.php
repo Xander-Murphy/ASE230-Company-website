@@ -1,6 +1,7 @@
 
 <?php
     require_once __DIR__ . '/../lib/jsonReader.php';
+    require_once __DIR__ . '/../lib/CSVreader.php';
     $team = '../data/team.json';
     $products = '../data/products.json';
 ?>
@@ -120,7 +121,7 @@ include("../lib/plaintextReader.php");
             <div class="container">
                 <div class="row justify-content-center mb-5">
                     <div class="col-lg-7 text-center">
-                        <h2 class="fw-bold">Our Services</h2>
+                        <h2 class="fw-bold">Our Awards</h2>
                         <p class="text-muted">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem ab illo inventore.</p>
                     </div>
                 </div>
@@ -132,8 +133,8 @@ include("../lib/plaintextReader.php");
                                 <div class="icon-mono service-icon avatar-md mx-auto mb-4">
                                     <i class="" data-feather="box"></i>
                                 </div>
-                                <h4 class="mb-3 font-size-22">Digital Design</h4>
-                                <p class="text-muted mb-0">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis.</p>
+                                <h4 class="mb-3 font-size-22"><?php echo readCSV('../data/awards.csv', 1, 1); ?></h4>
+                                <p class="text-muted mb-0"><?php echo readCSV('../data/awards.csv', 2, 1) . ", " . readCSV('../data/awards.csv', 0, 1); ?></p>
                             </div>
                         </div>
                     </div>
@@ -145,8 +146,8 @@ include("../lib/plaintextReader.php");
                                 <div class="icon-mono service-icon avatar-md mx-auto mb-4">
                                     <i class="" data-feather="layers"></i>
                                 </div>
-                                <h4 class="mb-3 font-size-22">Awesome Support</h4>
-                                <p class="text-muted mb-0">Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit.</p>
+                                <h4 class="mb-3 font-size-22"><?php echo readCSV('../data/awards.csv', 1, 2); ?></h4>
+                                <p class="text-muted mb-0"><?php echo readCSV('../data/awards.csv', 2, 2) . ", " . readCSV('../data/awards.csv', 0, 2); ?></p>
                             </div>
                         </div>
                     </div>
@@ -158,8 +159,47 @@ include("../lib/plaintextReader.php");
                                 <div class="icon-mono service-icon avatar-md mx-auto mb-4">
                                     <i class="" data-feather="server"></i>
                                 </div>
-                                <h4 class="mb-3 font-size-22">Easy to customize</h4>
-                                <p class="text-muted mb-0">Sed ut perspiciatis unde omnis iste natus error sit voluptatem doloremque.</p>
+                                <h4 class="mb-3 font-size-22"><?php echo readCSV('../data/awards.csv', 1, 3); ?></h4>
+                                <p class="text-muted mb-0"><?php echo readCSV('../data/awards.csv', 2, 3) . ", " . readCSV('../data/awards.csv', 0, 3); ?></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col -->
+
+                    <div class="col-lg-4">
+                        <div class="service-box text-center px-4 py-5 position-relative mb-4">
+                            <div class="service-box-content p-4">
+                                <div class="icon-mono service-icon avatar-md mx-auto mb-4">
+                                    <i class="" data-feather="box"></i>
+                                </div>
+                                <h4 class="mb-3 font-size-22"><?php echo readCSV('../data/awards.csv', 1, 4); ?></h4>
+                                <p class="text-muted mb-0"><?php echo readCSV('../data/awards.csv', 2, 4) . ", " . readCSV('../data/awards.csv', 0, 4); ?></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col -->
+
+                    <div class="col-lg-4">
+                        <div class="service-box text-center px-4 py-5 position-relative mb-4 active">
+                            <div class="service-box-content p-4">
+                                <div class="icon-mono service-icon avatar-md mx-auto mb-4">
+                                    <i class="" data-feather="layers"></i>
+                                </div>
+                                <h4 class="mb-3 font-size-22"><?php echo readCSV('../data/awards.csv', 1, 5); ?></h4>
+                                <p class="text-muted mb-0"><?php echo readCSV('../data/awards.csv', 2, 5) . ", " . readCSV('../data/awards.csv', 0, 5); ?></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col -->
+
+                    <div class="col-lg-4">
+                        <div class="service-box text-center px-4 py-5 position-relative mb-4">
+                            <div class="service-box-content p-4">
+                                <div class="icon-mono service-icon avatar-md mx-auto mb-4">
+                                    <i class="" data-feather="server"></i>
+                                </div>
+                                <h4 class="mb-3 font-size-22"><?php echo readCSV('../data/awards.csv', 1, 6); ?></h4>
+                                <p class="text-muted mb-0"><?php echo readCSV('../data/awards.csv', 2, 6) . ", " . readCSV('../data/awards.csv', 0, 6); ?></p>
                             </div>
                         </div>
                     </div>
