@@ -37,55 +37,41 @@ $users = json_decode(file_get_contents($productsFile), true) ?? [];
 </head>
 <body class="d-flex flex-column min-vh-100 text-light bg-dark text-center">
 
-<h2>User List</h2>
+<h2>Admin Index</h2>
 
 <nav class="mb-4">
 	<a class="btn btn-primary" href="index.php" role="button">Index</a>
-	<a class="btn btn-primary" href="chat.php" role="button">Chat</a>
 </nav>
 
 <table class="table table-dark table-striped mx-auto" style="width: 50%;">
 	<tr>
 		<th scope="col">Product</th>
-		<th scope="col">Email</th>
+		<th scope="col">Description</th>
+		<th scope="col">Applications</th>
 		<th scope="col">Action</th>
 	</tr>
 	<?php if (count($users) > 0): ?>
 		<?php foreach ($users as $user): ?>
 			<tr id="row-<?php echo htmlspecialchars($user['name']); ?>">
-					<td><?php echo htmlspecialchars($user['name']); ?></td>
-					<td><?php echo htmlspecialchars($user['description']); ?></td>
-					<td>
-							<button class="btn btn-primary" onclick="deleteUser('<?php echo htmlspecialchars($user['name']); ?>')">Delete</button>
-					</td>
+				<td><?php echo htmlspecialchars($user['name']); ?></td>
+				<td><?php echo htmlspecialchars($user['description']); ?></td>
+				<td>
+				<?php 
+					for($i = 0; $i < count($user['applications']); $i++) {
+						echo htmlspecialchars($user['applications'][$i]) . "," . "<br>";
+					}
+				?>
+				</td>
+				<td>
+					<a href="detail.php?name=<?php echo urlencode($user['name']); ?>" class="btn btn-primary">Details</a>
+				</td>
 			</tr>
 		<?php endforeach; ?>
 	<?php else: ?>
-			<tr><td colspan="3">No users found.</td></tr>
+		<tr><td colspan="3">No products found.</td></tr>
 	<?php endif; ?>
 </table>
-
-<script>
-  function deleteUser(product) {
-    if (!confirm("Are you sure you want to delete " + product + "?")) return;
-
-    fetch("", { // same page
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: "product=" + encodeURIComponent(product)
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.success) {
-          document.getElementById("row-" + product).remove();
-          alert("User deleted successfully!");
-      } else {
-          alert("Error: " + (data.message || "Unknown error"));
-      }
-    })
-    .catch(err => console.error("Error:", err));
-  }
-</script>
+<a href='create.php'>Create a New Product</a>
 
 </body>
 </html>
