@@ -234,120 +234,56 @@ include("../lib/plaintextReader.php");
 
         <!-- Pricing start -->
         <section class="section" id="pricing">
-            <div class="container">
-                <div class="row justify-content-center mb-5">
-                    <div class="col-lg-7 text-center">
-                        <h2 class="fw-bold">Pricing</h2>
-                        <!--<p class="text-muted">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem ab illo inventore.</p>-->
-                    </div>
-                </div>
-                <!-- end row -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="tab-content" id="pricingpills-tabContent">
-                            <div class="tab-pane fade show active" id="pills-monthly" role="tabpanel" aria-labelledby="pills-monthly-tab">
-                                <div class="row">
-                                    <div class="col-lg-3 d-flex">
-                                        <div class="card plan-card mt-4 rounded text-center border-0 shadow overflow-hidden">
-                                            <div class="card-body px-4 py-5">
-                                                <!-- <div class="icon-mono avatar-md bg-soft-primary text-primary rounded mx-auto mb-5"><i class="icon-lg" data-feather="circle"></i></div> -->
-                                                <div class="icon-mono avatar-md bg-soft-primary rounded mx-auto mb-5 p-3">
-                                                    <img src="images/pricing/1.png" alt="" class="img-fluid d-block mx-auto" />
-                                                </div>
-                                                <h4 class="text-uppercase mb-4 pb-1"><?php echoFieldFromTeams($products,0, 'name');?></h4>
-                                                <p class="text-muted"><?php echoFieldFromTeams($products,0, 'description');?> </p>
-                                                
-                                                <ul class="text-start text-muted mb-4 pb-1">
-                                                    <li><?php echoApplicationFromProducts($products, 3, 0);?></li>
-                                                    <li><?php echoApplicationFromProducts($products, 3, 1);?></li>
-                                                    <li><?php echoApplicationFromProducts($products, 3, 2);?></li>
-                                                </ul>
-                                                <p class="font-size-16 font-weight-semibold mb-4 price-tag">$9.00 / Month</p>
-                                                <a href="javascript: void(0);" class="btn btn-soft-primary">Buy Now</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- end col -->
-                                    <div class="col-lg-3 d-flex">
-                                        <div class="card plan-card mt-4 rounded text-center border-0 shadow overflow-hidden">
-                                            <div class="card-body px-4 py-5">
-                                                <!--<span class="badge badge-primary pricing-badge shadow-lg">Most Popular</span>-->
-                                                <!-- <div class="icon-mono avatar-md bg-soft-primary text-primary rounded mx-auto mb-5"><i class="icon-lg" data-feather="square"></i></div> -->
-                                                <div class="icon-mono avatar-md bg-soft-primary rounded mx-auto mb-5 p-3">
-                                                    <img src="images/pricing/2.png" alt="" class="img-fluid d-block mx-auto" />
-                                                </div>
-                                                <h4 class="text-uppercase mb-4 pb-1"><?php echoFieldFromTeams($products,1, 'name');?></h4>
-                                                <p class="text-muted"><?php echoFieldFromTeams($products,1, 'description');?> </p>
-                                                
-                                                <ul class="text-start text-muted mb-4 pb-1">
-                                                    <li><?php echoApplicationFromProducts($products, 1, 0);?></li>
-                                                    <li><?php echoApplicationFromProducts($products, 1, 1);?></li>
-                                                    <li><?php echoApplicationFromProducts($products, 1, 2);?></li>
-                                                </ul>
-                                                <p class="text-muted font-size-14 mb-1">All Extension Included</p>
-                                                <p class="font-size-16 font-weight-semibold mb-4 price-tag">$39.00 / Month</p>
-                                                <a href="javascript: void(0);" class="btn btn-soft-primary">Buy Now</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- end col -->
-                                    <div class="col-lg-3 d-flex">
-                                        <div class="card plan-card mt-4 rounded text-center border-0 shadow overflow-hidden">
-                                            <div class="card-body px-4 py-5">
-                                                <!-- <div class="icon-mono avatar-md bg-soft-primary text-primary rounded mx-auto mb-5"><i class="icon-lg" data-feather="triangle"></i></div> -->
-                                                <div class="icon-mono avatar-md bg-soft-primary rounded mx-auto mb-5 p-3">
-                                                    <img src="images/pricing/3.png" alt="" class="img-fluid d-block mx-auto" />
-                                                </div>
-                                                <h4 class="text-uppercase mb-4 pb-1"><?php echoFieldFromTeams($products,2, 'name');?></h4>
-                                                <p class="text-muted"><?php echoFieldFromTeams($products,2, 'description');?> </p>
-                                                
-                                                <ul class="text-start text-muted mb-4 pb-1">
-                                                    <li><?php echoApplicationFromProducts($products, 2, 0);?></li>
-                                                    <li><?php echoApplicationFromProducts($products, 2, 1);?></li>
-                                                    <li><?php echoApplicationFromProducts($products, 2, 2);?></li>
-                                                </ul>
-                                                <p class="text-muted font-size-14 mb-1">All Extension Included</p>
-                                                <p class="font-size-16 font-weight-semibold mb-4 price-tag">$79.00 / Month</p>
-                                                <a href="javascript: void(0);" class="btn btn-soft-primary">Buy Now</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- end col -->
-                                    <div class="col-lg-3 d-flex">
-                                        <div class="card plan-card mt-4 rounded text-center border-0 shadow overflow-hidden">
-                                            <div class="card-body px-4 py-5">
-                                                <!-- <div class="icon-mono avatar-md bg-soft-primary text-primary rounded mx-auto mb-5"><i class="icon-lg" data-feather="triangle"></i></div> -->
-                                                <div class="icon-mono avatar-md bg-soft-primary rounded mx-auto mb-5 p-3">
-                                                    <img src="images/pricing/3.png" alt="" class="img-fluid d-block mx-auto" />
-                                                </div>
-                                                <h4 class="text-uppercase mb-4 pb-1"><?php echoFieldFromTeams($products,3, 'name');?></h4>
-                                                <p class="text-muted"><?php echoFieldFromTeams($products,3, 'description');?> </span></p>
-                                                
-                                                <ul class="text-start text-muted mb-4 pb-1">
-                                                    <li><?php echoApplicationFromProducts($products, 3, 0);?></li>
-                                                    <li><?php echoApplicationFromProducts($products, 3, 1);?></li>
-                                                    <li><?php echoApplicationFromProducts($products, 3, 2);?></li>
-                                                </ul>
-                                                <p class="text-muted font-size-14 mb-1">All Extension Included</p>
-                                                <p class="font-size-16 font-weight-semibold mb-4 price-tag">$79.00 / Month</p>
-                                                <a href="javascript: void(0);" class="btn btn-soft-primary">Buy Now</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- end col -->
-                                </div>
-                                <!-- end row -->
-                            </div>
-                            <!-- end monthly tab pane -->
-                        </div>
-                        <!-- end tab content -->
-                    </div>
-                    <!-- end col -->
-                </div>
-                <!-- end row -->
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-7 text-center">
+                <h2 class="fw-bold">Pricing</h2>
             </div>
-            <!-- end container -->
-        </section>
+        </div>
+
+        <?php
+        if (file_exists($products)) {
+            $jsonData = file_get_contents($products);
+            $productData = json_decode($jsonData, true);
+            $total_products = count($productData);
+        }
+
+        for ($i = 0; $i < $total_products; $i++) {
+            if ($i % $productsPerRow === 0) {
+                echo '<div class="row">';
+            }
+        ?>
+            <div class="col-lg-3 d-flex">
+                <div class="card plan-card mt-4 rounded text-center border-0 shadow overflow-hidden">
+                    <div class="card-body px-4 py-5">
+                        <div class="icon-mono avatar-md bg-soft-primary rounded mx-auto mb-5 p-3">
+                            <img src="images/pricing/3" alt="" class="img-fluid d-block mx-auto" />
+                        </div>
+                        <h4 class="text-uppercase mb-4 pb-1">
+                            <?php echo echoFieldFromTeams($products, $i, 'name') ?>
+                        </h4>
+                        <p class="text-muted">
+                            <?php echo echoFieldFromTeams($products, $i, 'description'); ?>
+                        </p>
+                        <ul class="text-start text-muted mb-4 pb-1">
+                            <li><?php echo echoApplicationFromProducts($products, $i, 0)?></li>
+                            <li><?php echo echoApplicationFromProducts($products, $i, 1)?></li>
+                            <li><?php echo echoApplicationFromProducts($products, $i, 2)?></li>
+                        </ul>
+                        <p class="text-muted font-size-14 mb-1">All Extension Included</p>
+                        <p class="font-size-16 font-weight-semibold mb-4 price-tag">$39.99 / Month</p>
+                        <a href="javascript:void(0);" class="btn btn-soft-primary">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+        <?php
+            if (($i % $productsPerRow === $productsPerRow - 1) || $i === $total_products - 1) {
+                echo '</div>';
+            }
+        }
+        ?>
+    </div>
+</section>
         <!-- Pricing end -->
 
         <!-- Team start -->
