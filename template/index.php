@@ -14,7 +14,16 @@
 
     $membersPerRow = 4;
 
-$products = '../data/products.json';
+    //product stuff
+    $products = '../data/products.json';
+    $total_products = 0;
+    if (file_exists($products)) {
+        $jsonData = file_get_contents($products);
+        $productData = json_decode($jsonData, true);
+        $total_products = count($productData);
+    }
+
+    $productsPerRow = 4;
 ?>
 
 <?php
@@ -235,16 +244,6 @@ include("../lib/plaintextReader.php");
                 <!-- end row -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="text-center mb-4 pricing-tab">
-                            <ul class="nav nav-pills rounded-pill justify-content-center d-inline-block shadow-sm" id="pricingpills-tab" role="tablist">
-                                <li class="nav-item d-inline-block">
-                                    <a class="nav-link rounded-pill active" id="pills-monthly-tab" data-bs-toggle="pill" href="#pills-monthly" role="tab" aria-controls="pills-monthly" aria-selected="true">Monthly</a>
-                                </li>
-                                <li class="nav-item d-inline-block">
-                                    <a class="nav-link rounded-pill" id="pills-yearly-tab" data-bs-toggle="pill" href="#pills-yearly" role="tab" aria-controls="pills-yearly" aria-selected="false">Yearly</a>
-                                </li>
-                            </ul>
-                        </div>
                         <div class="tab-content" id="pricingpills-tabContent">
                             <div class="tab-pane fade show active" id="pills-monthly" role="tabpanel" aria-labelledby="pills-monthly-tab">
                                 <div class="row">
