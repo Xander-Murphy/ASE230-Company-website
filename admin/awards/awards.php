@@ -78,8 +78,15 @@
         }
     }
 
-    function createCSV($handle, $newData){
+    function appendCSV($filepath, $newData){
+        $handle = fopen($filepath, 'r+');
+        fseek($handle, -1, SEEK_END);
+        $lastChar = fgetc($handle);
+        if ($lastChar !== "\n") {
+            fwrite($handle, PHP_EOL);
+        }
         fputcsv($handle, $newData);
+        fclose($handle);
     }
 
     function deleteCSV($filepath, $object){

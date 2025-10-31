@@ -16,9 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($details === '') $errors[] = "Details are required.";
 
   if (empty($errors)) {
-    $handle = fopen($awardsFile, 'a');
-    createCSV($handle, [$year, $name, $details]);
-    fclose($handle);
+    $newData = [$year, $name, $details];
+    appendCSV($awardsFile, $newData);
     header('Location: index.php');
     exit;
   }
