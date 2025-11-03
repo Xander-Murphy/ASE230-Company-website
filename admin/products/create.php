@@ -1,35 +1,51 @@
 <?php
-require 'products.php';
+// products/create.php
+require_once __DIR__ . '/../JsonHelper.php';
 
-$name = $description = '';
-$applications = [];
-
+$dataFile = __DIR__ . '/../../data/products.json';
 $errors = [];
+$success = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $name = trim($_POST['name'] ?? '');
-  $description = trim($_POST['description'] ?? '');
-  $app1 = trim($_POST['app1'] ?? '');
-  $app2 = trim($_POST['app2'] ?? '');
-  $app3 = trim($_POST['app3'] ?? '');
+    $name = trim((string)($_POST['name'] ?? ''));
+    $description = trim((string)($_POST['description'] ?? ''));
+    $app1 = trim((string)($_POST['application_1'] ?? ''));
+    $app2 = trim((string)($_POST['application_2'] ?? ''));
+    $app3 = trim((string)($_POST['application_3'] ?? ''));
 
-  //validation
-  if ($name === '') $errors[] = "Name is required.";
-  if ($description === '') $errors[] = "Description is required.";
-  if ($app1 === '' || $app2 === '' || $app3 === '') {
-    $errors[] = "All three applications are required.";
-  }
-  if (empty($errors)) {
-    createProduct([
-      'name' => $name,
-      'description' => $description,
-      'applications' => [$app1, $app2, $app3]
-    ]);
+    // Validation
+    if ($name === '') {
+        $errors[] = "Name is required.";
+    } else {
+        $existing = JsonHelper::findByField($dataFile, 'name', $name);
+        if ($existing !== null) {
+            $errors[] = "A product with that name already exists.";
+        }
+    }
 
-    // Redirect to back to index after product is created
-    header('Location: edit.php?name=' . urlencode($name));
-    exit;
-  }
+    $applications = [$app1, $app2, $app3];
+    $missingApps = [];
+    foreach ($applications as $i => $app) {
+        if ($app === '') $missingApps[] = $i + 1;
+    }
+    if (!empty($missingApps)) {
+        $errors[] = "Please provide all three applications (missing: " . implode(', ', $missingApps) . ").";
+    }
+
+    if (empty($errors)) {
+        $item = [
+            'name' => $name,
+            'description' => $description,
+            'applications' => array_values($applications),
+        ];
+        JsonHelper::create($dataFile, $item);
+        $success = "Product created.";
+        $_POST = [];
+    }
+}
+
+function old($key) {
+    return isset($_POST[$key]) ? htmlspecialchars($_POST[$key]) : '';
 }
 ?>
 <!DOCTYPE html>
@@ -44,12 +60,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="container mt-5">
   <h2 class="text-center mb-4">Create New Product</h2>
 
-  <?php if ($errors): ?>
+  <?php if ($success): ?>
+    <div class="alert alert-success"><?php echo htmlspecialchars($success); ?></div>
+  <?php endif; ?>
+
+  <?php if (!empty($errors)): ?>
     <div class="alert alert-danger">
       <ul>
-        <?php foreach ($errors as $err): ?>
-            <li><?php echo htmlspecialchars($err); ?></li>
-        <?php endforeach; ?>
+        <?php foreach ($errors as $e): ?><li><?= htmlspecialchars($e) ?></li><?php endforeach; ?>
       </ul>
     </div>
   <?php endif; ?>
@@ -57,19 +75,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <form method="POST" class="mx-auto" style="max-width: 600px;">
     <div class="mb-3">
       <label class="form-label">Product Name</label>
-      <input type="text" name="name" class="form-control" value="<?php echo htmlspecialchars($name); ?>" required>
+      <input type="text" name="name" class="form-control" value="<?= old('name') ?>" required>
     </div>
 
     <div class="mb-3">
       <label class="form-label">Description</label>
-      <textarea name="description" class="form-control" rows="3" required><?php echo htmlspecialchars($description); ?></textarea>
+      <textarea name="description" class="form-control" rows="3"><?= old('description') ?></textarea>
     </div>
 
     <div class="mb-3">
       <label class="form-label">Applications</label>
-      <input type="text" name="app1" class="form-control mb-2" placeholder="Application 1" required>
-      <input type="text" name="app2" class="form-control mb-2" placeholder="Application 2" required>
-      <input type="text" name="app3" class="form-control mb-2" placeholder="Application 3" required>
+      <input type="text" name="application_1" class="form-control mb-2" placeholder="Application 1" value="<?= old('application_1') ?>" required>
+      <input type="text" name="application_2" class="form-control mb-2" placeholder="Application 2" value="<?= old('application_2') ?>" required>
+      <input type="text" name="application_3" class="form-control mb-2" placeholder="Application 3" value="<?= old('application_3') ?>" required>
     </div>
 
     <div class="text-center">
