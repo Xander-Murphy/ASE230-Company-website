@@ -2,8 +2,28 @@
 <?php
     require_once __DIR__ . '/../lib/jsonReader.php';
     require_once __DIR__ . '/../lib/CSVreader.php';
-    $team = '../data/team.json';
+
+    //team stuff
+    $teamFile = '../data/team.json';
+    $totalMembers = 0;
+    if (file_exists($teamFile)) {
+        $jsonData = file_get_contents($teamFile);
+        $teamData = json_decode($jsonData, true);
+        $totalMembers = count($teamData);
+    }
+
+    $membersPerRow = 4;
+
+    //product stuff
     $products = '../data/products.json';
+    $total_products = 0;
+    if (file_exists($products)) {
+        $jsonData = file_get_contents($products);
+        $productData = json_decode($jsonData, true);
+        $total_products = count($productData);
+    }
+
+    $productsPerRow = 4;
 ?>
 
 <?php
@@ -214,130 +234,56 @@ include("../lib/plaintextReader.php");
 
         <!-- Pricing start -->
         <section class="section" id="pricing">
-            <div class="container">
-                <div class="row justify-content-center mb-5">
-                    <div class="col-lg-7 text-center">
-                        <h2 class="fw-bold">Pricing</h2>
-                        <!--<p class="text-muted">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem ab illo inventore.</p>-->
-                    </div>
-                </div>
-                <!-- end row -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="text-center mb-4 pricing-tab">
-                            <ul class="nav nav-pills rounded-pill justify-content-center d-inline-block shadow-sm" id="pricingpills-tab" role="tablist">
-                                <li class="nav-item d-inline-block">
-                                    <a class="nav-link rounded-pill active" id="pills-monthly-tab" data-bs-toggle="pill" href="#pills-monthly" role="tab" aria-controls="pills-monthly" aria-selected="true">Monthly</a>
-                                </li>
-                                <li class="nav-item d-inline-block">
-                                    <a class="nav-link rounded-pill" id="pills-yearly-tab" data-bs-toggle="pill" href="#pills-yearly" role="tab" aria-controls="pills-yearly" aria-selected="false">Yearly</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="tab-content" id="pricingpills-tabContent">
-                            <div class="tab-pane fade show active" id="pills-monthly" role="tabpanel" aria-labelledby="pills-monthly-tab">
-                                <div class="row">
-                                    <div class="col-lg-3 d-flex">
-                                        <div class="card plan-card mt-4 rounded text-center border-0 shadow overflow-hidden">
-                                            <div class="card-body px-4 py-5">
-                                                <!-- <div class="icon-mono avatar-md bg-soft-primary text-primary rounded mx-auto mb-5"><i class="icon-lg" data-feather="circle"></i></div> -->
-                                                <div class="icon-mono avatar-md bg-soft-primary rounded mx-auto mb-5 p-3">
-                                                    <img src="images/pricing/1.png" alt="" class="img-fluid d-block mx-auto" />
-                                                </div>
-                                                <h4 class="text-uppercase mb-4 pb-1"><?php echoFieldFromTeams($products,0, 'name');?></h4>
-                                                <p class="text-muted"><?php echoFieldFromTeams($products,0, 'description');?> </p>
-                                                
-                                                <ul class="text-start text-muted mb-4 pb-1">
-                                                    <li><?php echoApplicationFromProducts($products, 3, 0);?></li>
-                                                    <li><?php echoApplicationFromProducts($products, 3, 1);?></li>
-                                                    <li><?php echoApplicationFromProducts($products, 3, 2);?></li>
-                                                </ul>
-                                                <p class="font-size-16 font-weight-semibold mb-4 price-tag">$9.00 / Month</p>
-                                                <a href="javascript: void(0);" class="btn btn-soft-primary">Buy Now</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- end col -->
-                                    <div class="col-lg-3 d-flex">
-                                        <div class="card plan-card mt-4 rounded text-center border-0 shadow overflow-hidden">
-                                            <div class="card-body px-4 py-5">
-                                                <!--<span class="badge badge-primary pricing-badge shadow-lg">Most Popular</span>-->
-                                                <!-- <div class="icon-mono avatar-md bg-soft-primary text-primary rounded mx-auto mb-5"><i class="icon-lg" data-feather="square"></i></div> -->
-                                                <div class="icon-mono avatar-md bg-soft-primary rounded mx-auto mb-5 p-3">
-                                                    <img src="images/pricing/2.png" alt="" class="img-fluid d-block mx-auto" />
-                                                </div>
-                                                <h4 class="text-uppercase mb-4 pb-1"><?php echoFieldFromTeams($products,1, 'name');?></h4>
-                                                <p class="text-muted"><?php echoFieldFromTeams($products,1, 'description');?> </p>
-                                                
-                                                <ul class="text-start text-muted mb-4 pb-1">
-                                                    <li><?php echoApplicationFromProducts($products, 1, 0);?></li>
-                                                    <li><?php echoApplicationFromProducts($products, 1, 1);?></li>
-                                                    <li><?php echoApplicationFromProducts($products, 1, 2);?></li>
-                                                </ul>
-                                                <p class="text-muted font-size-14 mb-1">All Extension Included</p>
-                                                <p class="font-size-16 font-weight-semibold mb-4 price-tag">$39.00 / Month</p>
-                                                <a href="javascript: void(0);" class="btn btn-soft-primary">Buy Now</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- end col -->
-                                    <div class="col-lg-3 d-flex">
-                                        <div class="card plan-card mt-4 rounded text-center border-0 shadow overflow-hidden">
-                                            <div class="card-body px-4 py-5">
-                                                <!-- <div class="icon-mono avatar-md bg-soft-primary text-primary rounded mx-auto mb-5"><i class="icon-lg" data-feather="triangle"></i></div> -->
-                                                <div class="icon-mono avatar-md bg-soft-primary rounded mx-auto mb-5 p-3">
-                                                    <img src="images/pricing/3.png" alt="" class="img-fluid d-block mx-auto" />
-                                                </div>
-                                                <h4 class="text-uppercase mb-4 pb-1"><?php echoFieldFromTeams($products,2, 'name');?></h4>
-                                                <p class="text-muted"><?php echoFieldFromTeams($products,2, 'description');?> </p>
-                                                
-                                                <ul class="text-start text-muted mb-4 pb-1">
-                                                    <li><?php echoApplicationFromProducts($products, 2, 0);?></li>
-                                                    <li><?php echoApplicationFromProducts($products, 2, 1);?></li>
-                                                    <li><?php echoApplicationFromProducts($products, 2, 2);?></li>
-                                                </ul>
-                                                <p class="text-muted font-size-14 mb-1">All Extension Included</p>
-                                                <p class="font-size-16 font-weight-semibold mb-4 price-tag">$79.00 / Month</p>
-                                                <a href="javascript: void(0);" class="btn btn-soft-primary">Buy Now</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- end col -->
-                                    <div class="col-lg-3 d-flex">
-                                        <div class="card plan-card mt-4 rounded text-center border-0 shadow overflow-hidden">
-                                            <div class="card-body px-4 py-5">
-                                                <!-- <div class="icon-mono avatar-md bg-soft-primary text-primary rounded mx-auto mb-5"><i class="icon-lg" data-feather="triangle"></i></div> -->
-                                                <div class="icon-mono avatar-md bg-soft-primary rounded mx-auto mb-5 p-3">
-                                                    <img src="images/pricing/3.png" alt="" class="img-fluid d-block mx-auto" />
-                                                </div>
-                                                <h4 class="text-uppercase mb-4 pb-1"><?php echoFieldFromTeams($products,3, 'name');?></h4>
-                                                <p class="text-muted"><?php echoFieldFromTeams($products,3, 'description');?> </span></p>
-                                                
-                                                <ul class="text-start text-muted mb-4 pb-1">
-                                                    <li><?php echoApplicationFromProducts($products, 3, 0);?></li>
-                                                    <li><?php echoApplicationFromProducts($products, 3, 1);?></li>
-                                                    <li><?php echoApplicationFromProducts($products, 3, 2);?></li>
-                                                </ul>
-                                                <p class="text-muted font-size-14 mb-1">All Extension Included</p>
-                                                <p class="font-size-16 font-weight-semibold mb-4 price-tag">$79.00 / Month</p>
-                                                <a href="javascript: void(0);" class="btn btn-soft-primary">Buy Now</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- end col -->
-                                </div>
-                                <!-- end row -->
-                            </div>
-                            <!-- end monthly tab pane -->
-                        </div>
-                        <!-- end tab content -->
-                    </div>
-                    <!-- end col -->
-                </div>
-                <!-- end row -->
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-7 text-center">
+                <h2 class="fw-bold">Pricing</h2>
             </div>
-            <!-- end container -->
-        </section>
+        </div>
+
+        <?php
+        if (file_exists($products)) {
+            $jsonData = file_get_contents($products);
+            $productData = json_decode($jsonData, true);
+            $total_products = count($productData);
+        }
+
+        for ($i = 0; $i < $total_products; $i++) {
+            if ($i % $productsPerRow === 0) {
+                echo '<div class="row">';
+            }
+        ?>
+            <div class="col-lg-3 d-flex">
+                <div class="card plan-card mt-4 rounded text-center border-0 shadow overflow-hidden">
+                    <div class="card-body px-4 py-5">
+                        <div class="icon-mono avatar-md bg-soft-primary rounded mx-auto mb-5 p-3">
+                            <img src="images/pricing/3" alt="" class="img-fluid d-block mx-auto" />
+                        </div>
+                        <h4 class="text-uppercase mb-4 pb-1">
+                            <?php echo echoFieldFromTeams($products, $i, 'name') ?>
+                        </h4>
+                        <p class="text-muted">
+                            <?php echo echoFieldFromTeams($products, $i, 'description'); ?>
+                        </p>
+                        <ul class="text-start text-muted mb-4 pb-1">
+                            <li><?php echo echoApplicationFromProducts($products, $i, 0)?></li>
+                            <li><?php echo echoApplicationFromProducts($products, $i, 1)?></li>
+                            <li><?php echo echoApplicationFromProducts($products, $i, 2)?></li>
+                        </ul>
+                        <p class="text-muted font-size-14 mb-1">All Extension Included</p>
+                        <p class="font-size-16 font-weight-semibold mb-4 price-tag">$39.99 / Month</p>
+                        <a href="javascript:void(0);" class="btn btn-soft-primary">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+        <?php
+            if (($i % $productsPerRow === $productsPerRow - 1) || $i === $total_products - 1) {
+                echo '</div>';
+            }
+        }
+        ?>
+    </div>
+</section>
         <!-- Pricing end -->
 
         <!-- Team start -->
@@ -346,112 +292,44 @@ include("../lib/plaintextReader.php");
                 <div class="row justify-content-center mb-4">
                     <div class="col-lg-7 text-center">
                         <h2 class="fw-bold">Our Team Members</h2>
-                        <!--<p class="text-muted"></p>-->
                     </div>
-                    <!-- end col -->
                 </div>
-                <!-- end row -->
-                <div class="row">
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="team-box mt-4 position-relative overflow-hidden rounded text-center shadow">
-                            <div class="position-relative overflow-hidden">
-                                <img src="images/team/1.jpg" alt="" class="img-fluid d-block mx-auto" />
-                                <ul class="list-inline p-3 mb-0 team-social-item">
-                                    <li class="list-inline-item mx-3">
-                                        <a href="javascript: void(0);" class="team-social-icon h-primary"><i class="icon-sm" data-feather="facebook"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mx-3">
-                                        <a href="javascript: void(0);" class="team-social-icon h-info"><i class="icon-sm" data-feather="twitter"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mx-3">
-                                        <a href="javascript: void(0);" class="team-social-icon h-danger"><i class="icon-sm" data-feather="instagram"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="p-4">
-                                <h5 class="font-size-19 mb-1"><?php echoFieldFromTeams($team,0, 'name');?></h5>
-                                <p class="text-muted text-uppercase font-size-14 mb-0"><?php echoFieldFromTeams($team,0, 'title');?></p>
-                            </div>
-                        </div>
+                <?php 
+                    for ($i = 0; $i < $totalMembers; $i++) {
+                        if ($i % $membersPerRow === 0) {
+                            echo '<div class="row">';
+                        }
+                ?>
+                <div class="col-lg-3 col-sm-6">
+                <div class="team-box mt-4 position-relative overflow-hidden rounded text-center shadow">
+                    <div class="position-relative overflow-hidden">
+                        <img src="images/team/default.png" alt="Team Member" class="img-fluid d-block mx-auto" />
+                        <ul class="list-inline p-3 mb-0 team-social-item">
+                            <li class="list-inline-item mx-3">
+                                <a href="javascript: void(0);" class="team-social-icon h-primary"><i class="icon-sm" data-feather="facebook"></i></a>
+                            </li>
+                            <li class="list-inline-item mx-3">
+                                <a href="javascript: void(0);" class="team-social-icon h-info"><i class="icon-sm" data-feather="twitter"></i></a>
+                            </li>
+                            <li class="list-inline-item mx-3">
+                                <a href="javascript: void(0);" class="team-social-icon h-danger"><i class="icon-sm" data-feather="instagram"></i></a>
+                            </li>
+                        </ul>
                     </div>
-                    <!-- end col -->
-
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="team-box mt-4 position-relative overflow-hidden rounded text-center shadow">
-                            <div class="position-relative overflow-hidden">
-                                <img src="images/team/2.jpg" alt="" class="img-fluid d-block mx-auto" />
-                                <ul class="list-inline p-3 mb-0 team-social-item">
-                                    <li class="list-inline-item mx-3">
-                                        <a href="javascript: void(0);" class="team-social-icon h-primary"><i class="icon-sm" data-feather="facebook"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mx-3">
-                                        <a href="javascript: void(0);" class="team-social-icon h-info"><i class="icon-sm" data-feather="twitter"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mx-3">
-                                        <a href="javascript: void(0);" class="team-social-icon h-danger"><i class="icon-sm" data-feather="instagram"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="p-4">
-                                <h5 class="font-size-19 mb-1"><?php echoFieldFromTeams($team,1, 'name');?></h5>
-                                <p class="text-muted text-uppercase font-size-14 mb-0"><?php echoFieldFromTeams($team,1, 'title');?></p>
-                            </div>
-                        </div>
+                    <div class="p-4">
+                        <h5 class="font-size-19 mb-1"><?php echoFieldFromTeams($teamFile, $i, 'name'); ?></h5>
+                        <p class="text-muted text-uppercase font-size-14 mb-0"><?php echoFieldFromTeams($teamFile, $i, 'title'); ?></p>
                     </div>
-                    <!-- end col -->
-
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="team-box mt-4 position-relative overflow-hidden rounded text-center shadow">
-                            <div class="position-relative overflow-hidden">
-                                <img src="images/team/3.jpg" alt="" class="img-fluid d-block mx-auto" />
-                                <ul class="list-inline p-3 mb-0 team-social-item">
-                                    <li class="list-inline-item mx-3">
-                                        <a href="javascript: void(0);" class="team-social-icon h-primary"><i class="icon-sm" data-feather="facebook"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mx-3">
-                                        <a href="javascript: void(0);" class="team-social-icon h-info"><i class="icon-sm" data-feather="twitter"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mx-3">
-                                        <a href="javascript: void(0);" class="team-social-icon h-danger"><i class="icon-sm" data-feather="instagram"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="p-4">
-                                <h5 class="font-size-19 mb-1"><?php echoFieldFromTeams($team,2, 'name');?></h5>
-                                <p class="text-muted text-uppercase font-size-14 mb-0"><?php echoFieldFromTeams($team,2, 'title');?></p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end col -->
-
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="team-box mt-4 position-relative overflow-hidden rounded text-center shadow">
-                            <div class="position-relative overflow-hidden">
-                                <img src="images/team/4.jpg" alt="" class="img-fluid d-block mx-auto" />
-                                <ul class="list-inline p-3 mb-0 team-social-item">
-                                    <li class="list-inline-item mx-3">
-                                        <a href="javascript: void(0);" class="team-social-icon h-primary"><i class="icon-sm" data-feather="facebook"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mx-3">
-                                        <a href="javascript: void(0);" class="team-social-icon h-info"><i class="icon-sm" data-feather="twitter"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mx-3">
-                                        <a href="javascript: void(0);" class="team-social-icon h-danger"><i class="icon-sm" data-feather="instagram"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="p-4">
-                                <h5 class="font-size-19 mb-1"><?php echoFieldFromTeams($team,3, 'name');?></h5>
-                                <p class="text-muted text-uppercase font-size-14 mb-0"><?php echoFieldFromTeams($team,3, 'title');?></p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end col -->
                 </div>
-                <!-- end row -->
             </div>
-            <!-- end container -->
-        </section>
+        <?php
+            if (($i % $membersPerRow === $membersPerRow - 1) || $i === $totalMembers - 1) {
+                echo '</div>';
+            }
+        }
+        ?>
+    </div>
+</section>
         <!-- Team end -->
 
         <!-- Blog start -->
