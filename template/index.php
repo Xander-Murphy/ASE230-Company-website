@@ -14,20 +14,42 @@
 
     $membersPerRow = 4;
 
-    //product stuff
-    $products = '../data/products.json';
-    $total_products = 0;
-    if (file_exists($products)) {
-        $jsonData = file_get_contents($products);
-        $productData = json_decode($jsonData, true);
-        $total_products = count($productData);
-    }
-
-    $productsPerRow = 4;
+$products = '../data/products.json';
 ?>
 
 <?php
 include("../lib/plaintextReader.php");
+
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $name = htmlspecialchars(trim($_POST['name'] ?? ''));
+        $email = htmlspecialchars(trim($_POST['email'] ?? ''));
+        $subject = htmlspecialchars(trim($_POST['subject'] ?? ''));
+        $comments = htmlspecialchars(trim($_POST['comments'] ?? ''));
+
+        if ($name && $email && $subject && $comments) {
+            $contactFile = '../data/contacts.json';
+
+            $data = [];
+            if (file_exists($contactFile)) {
+                $json = file_get_contents($contactFile);
+                $data = json_decode($json, true) ?? [];
+            }
+
+            $data[] = [
+                'name' => $name,
+                'email' => $email,
+                'subject' => $subject,
+                'message' => $comments,
+                'date' => date('Y-m-d H:i:s')
+            ];
+
+            file_put_contents($contactFile, json_encode($data, JSON_PRETTY_PRINT));
+
+            echo "<div class='alert alert-success'>Message saved successfully!</div>";
+        } else {
+            echo "<div class='alert alert-danger'>Please fill in all fields.</div>";
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -319,9 +341,42 @@ include("../lib/plaintextReader.php");
                     <div class="p-4">
                         <h5 class="font-size-19 mb-1"><?php echoFieldFromTeams($teamFile, $i, 'name'); ?></h5>
                         <p class="text-muted text-uppercase font-size-14 mb-0"><?php echoFieldFromTeams($teamFile, $i, 'title'); ?></p>
+                <?php 
+                    for ($i = 0; $i < $totalMembers; $i++) {
+                        if ($i % $membersPerRow === 0) {
+                            echo '<div class="row">';
+                        }
+                ?>
+                <div class="col-lg-3 col-sm-6">
+                <div class="team-box mt-4 position-relative overflow-hidden rounded text-center shadow">
+                    <div class="position-relative overflow-hidden">
+                        <img src="images/team/default.png" alt="Team Member" class="img-fluid d-block mx-auto" />
+                        <ul class="list-inline p-3 mb-0 team-social-item">
+                            <li class="list-inline-item mx-3">
+                                <a href="javascript: void(0);" class="team-social-icon h-primary"><i class="icon-sm" data-feather="facebook"></i></a>
+                            </li>
+                            <li class="list-inline-item mx-3">
+                                <a href="javascript: void(0);" class="team-social-icon h-info"><i class="icon-sm" data-feather="twitter"></i></a>
+                            </li>
+                            <li class="list-inline-item mx-3">
+                                <a href="javascript: void(0);" class="team-social-icon h-danger"><i class="icon-sm" data-feather="instagram"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="p-4">
+                        <h5 class="font-size-19 mb-1"><?php echoFieldFromTeams($teamFile, $i, 'name'); ?></h5>
+                        <p class="text-muted text-uppercase font-size-14 mb-0"><?php echoFieldFromTeams($teamFile, $i, 'title'); ?></p>
                     </div>
                 </div>
             </div>
+        <?php
+            if (($i % $membersPerRow === $membersPerRow - 1) || $i === $totalMembers - 1) {
+                echo '</div>';
+            }
+        }
+        ?>
+    </div>
+</section>
         <?php
             if (($i % $membersPerRow === $membersPerRow - 1) || $i === $totalMembers - 1) {
                 echo '</div>';
@@ -376,7 +431,7 @@ include("../lib/plaintextReader.php");
                         <p class="text-muted mb-5">Et harum quidem rerum facilis est expedita distinctio temporecum soluta nobis est eligendi optio cumque nihil impedit quo minus maxime.</p>
                        
                         <div>
-                            <form method="post" name="myForm" onsubmit="return validateForm()">
+                            <form method="post" name="contactForm" >
                                 <p id="error-msg"></p>
                                 <div id="simple-msg"></div>
                                 <div class="row">
