@@ -1,5 +1,5 @@
 <?php
-include '../pages.php';
+include 'pages.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name']);
@@ -37,3 +37,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <a href="index.php">Cancel</a>
 </body>
 </html>
+
