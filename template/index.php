@@ -14,7 +14,16 @@
 
     $membersPerRow = 4;
 
-$products = '../data/products.json';
+    //product stuff
+    $products = '../data/products.json';
+    $total_products = 0;
+    if (file_exists($products)) {
+        $jsonData = file_get_contents($products);
+        $productData = json_decode($jsonData, true);
+        $total_products = count($productData);
+    }
+
+    $productsPerRow = 4;
 ?>
 
 <?php
@@ -309,45 +318,26 @@ include("../lib/plaintextReader.php");
         <!-- Pricing end -->
 
         <!-- Team start -->
-        <section class="section bg-light" id="team">
-            <div class="container">
-                <div class="row justify-content-center mb-4">
-                    <div class="col-lg-7 text-center">
-                        <h2 class="fw-bold">Our Team Members</h2>
-                    </div>
+<section class="section bg-light" id="team">
+    <div class="container">
+        <div class="row justify-content-center mb-4">
+            <div class="col-lg-7 text-center">
+                <div class="section-title">
+                    <h2 class="title mb-4">Our Team Members</h2>
                 </div>
-                <?php 
-                    for ($i = 0; $i < $totalMembers; $i++) {
-                        if ($i % $membersPerRow === 0) {
-                            echo '<div class="row">';
-                        }
-                ?>
-                <div class="col-lg-3 col-sm-6">
-                <div class="team-box mt-4 position-relative overflow-hidden rounded text-center shadow">
-                    <div class="position-relative overflow-hidden">
-                        <img src="images/team/default.png" alt="Team Member" class="img-fluid d-block mx-auto" />
-                        <ul class="list-inline p-3 mb-0 team-social-item">
-                            <li class="list-inline-item mx-3">
-                                <a href="javascript: void(0);" class="team-social-icon h-primary"><i class="icon-sm" data-feather="facebook"></i></a>
-                            </li>
-                            <li class="list-inline-item mx-3">
-                                <a href="javascript: void(0);" class="team-social-icon h-info"><i class="icon-sm" data-feather="twitter"></i></a>
-                            </li>
-                            <li class="list-inline-item mx-3">
-                                <a href="javascript: void(0);" class="team-social-icon h-danger"><i class="icon-sm" data-feather="instagram"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="p-4">
-                        <h5 class="font-size-19 mb-1"><?php echoFieldFromTeams($teamFile, $i, 'name'); ?></h5>
-                        <p class="text-muted text-uppercase font-size-14 mb-0"><?php echoFieldFromTeams($teamFile, $i, 'title'); ?></p>
-                <?php 
-                    for ($i = 0; $i < $totalMembers; $i++) {
-                        if ($i % $membersPerRow === 0) {
-                            echo '<div class="row">';
-                        }
-                ?>
-                <div class="col-lg-3 col-sm-6">
+            </div>
+        </div>
+
+        <?php
+            // single loop only — don't duplicate it
+            for ($i = 0; $i < $totalMembers; $i++) {
+
+                // open a new row at the beginning of each group of $membersPerRow
+                if ($i % $membersPerRow === 0) {
+                    echo '<div class="row">';
+                }
+        ?>
+            <div class="col-lg-3 col-sm-6">
                 <div class="team-box mt-4 position-relative overflow-hidden rounded text-center shadow">
                     <div class="position-relative overflow-hidden">
                         <img src="images/team/default.png" alt="Team Member" class="img-fluid d-block mx-auto" />
@@ -370,22 +360,15 @@ include("../lib/plaintextReader.php");
                 </div>
             </div>
         <?php
-            if (($i % $membersPerRow === $membersPerRow - 1) || $i === $totalMembers - 1) {
-                echo '</div>';
-            }
-        }
+                // close the row after every full row OR after the last member
+                if ($i % $membersPerRow === $membersPerRow - 1 || $i === $totalMembers - 1) {
+                    echo '</div>';
+                }
+            } // end for
         ?>
     </div>
 </section>
-        <?php
-            if (($i % $membersPerRow === $membersPerRow - 1) || $i === $totalMembers - 1) {
-                echo '</div>';
-            }
-        }
-        ?>
-    </div>
-</section>
-        <!-- Team end -->
+<!-- Team end -->
 
         <!-- Blog start -->
         <!-- Blog end -->
