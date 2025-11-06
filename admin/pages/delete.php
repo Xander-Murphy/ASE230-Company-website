@@ -1,5 +1,5 @@
 <?php
-include '../pages.php';
+include 'pages.php';
 
 $page = $_GET['page'] ?? '';
 
@@ -23,3 +23,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <a href="index.php">Cancel</a>
 </body>
 </html>
+
