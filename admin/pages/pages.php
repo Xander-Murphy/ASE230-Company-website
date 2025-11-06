@@ -1,12 +1,15 @@
 <?php
 
-
 function getDataDir() {
-    return __DIR__ . '/../data/';
+    return __DIR__ . '/../../data/';
 }
 
 function getAllPages() {
     $dir = getDataDir();
+    if (!is_dir($dir)) {
+        return [];
+    }
+
     $files = scandir($dir);
     $pages = [];
 
@@ -27,12 +30,12 @@ function getPageContent($name) {
     return null;
 }
 
-
 function createPage($name, $content) {
     $filePath = getDataDir() . $name . '.txt';
     if (file_exists($filePath)) {
         return false; 
     }
+
     file_put_contents($filePath, $content);
     return true;
 }
@@ -40,8 +43,9 @@ function createPage($name, $content) {
 function updatePage($name, $newContent) {
     $filePath = getDataDir() . $name . '.txt';
     if (!file_exists($filePath)) {
-        return false;
+        return false; 
     }
+
     file_put_contents($filePath, $newContent);
     return true;
 }
