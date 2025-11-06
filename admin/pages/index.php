@@ -1,5 +1,5 @@
 <?php
-include '../pages.php';
+include 'pages.php';
 $pages = getAllPages();
 ?>
 
@@ -29,3 +29,4 @@ $pages = getAllPages();
 <a href="create.php">Create New Page</a>
 </body>
 </html>
+

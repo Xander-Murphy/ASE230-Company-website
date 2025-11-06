@@ -1,5 +1,5 @@
 <?php
-include '../pages.php';
+include 'pages.php';
 
 $page = $_GET['page'] ?? '';
 $content = getPageContent($page);
@@ -19,3 +19,4 @@ if ($content === null) {
 <a href="index.php">Back to list</a>
 </body>
 </html>
+
