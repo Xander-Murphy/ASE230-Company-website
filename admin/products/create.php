@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'applications' => array_values($applications),
         ];
         JsonHelper::create($dataFile, $item);
-        $success = "Product created.";
+        header('Location: edit.php?name=' . urlencode($name));
         $_POST = [];
     }
 }
@@ -59,10 +59,6 @@ function old($key) {
 
 <div class="container mt-5">
   <h2 class="text-center mb-4">Create New Product</h2>
-
-  <?php if ($success): ?>
-    <div class="alert alert-success"><?php echo htmlspecialchars($success); ?></div>
-  <?php endif; ?>
 
   <?php if (!empty($errors)): ?>
     <div class="alert alert-danger">
