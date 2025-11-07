@@ -1,12 +1,14 @@
 <?php
-require 'awards.php';
-
+require '../csvHelper.php';
+require 'award.php';
 $awardsFile = '../../data/awards.csv';
 
 $awardName = $_GET['award'] ?? '';
 $awardYear = $_GET['year'] ?? '';
 
-$award = getCSVByTwo($awardsFile, $awardName, $awardYear);
+$award = csvHelper::getCSVByTwo($awardsFile, $awardYear, $awardName);
+if($award)
+  $award = new Award($award[0], $award[1], $award[2]);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,16 +21,16 @@ $award = getCSVByTwo($awardsFile, $awardName, $awardYear);
 
 <nav class="mb-4 mt-3">
   <a class="btn btn-primary" href="index.php" role="button">Index</a>
-  <a href="edit.php?name=<?php echo $awardName ?>&year=<?php echo $awardYear ?>" class="btn btn-primary">Edit</a>
-  <a href="delete.php?name=<?php echo $awardName ?>&year=<?php echo $awardYear ?>" class="btn btn-primary">Delete</a>
+  <a href="edit.php?name=<?php echo $award->title ?>&year=<?php echo $award->year ?>" class="btn btn-primary">Edit</a>
+  <a href="delete.php?name=<?php echo $award->title ?>&year=<?php echo $award->year ?>" class="btn btn-primary">Delete</a>
 </nav>
 
 <div class="container mt-4">
   <?php if ($award): ?>
-    <h2><?php echo htmlspecialchars($award[1]); ?></h2><br>
-    <p><strong>Year:</strong> <?php echo htmlspecialchars($award[0]); ?></p>
+    <h2><?php echo htmlspecialchars($award->title); ?></h2><br>
+    <p><strong>Year:</strong> <?php echo htmlspecialchars($award->year); ?></p>
 
-    <p><strong>Details:</strong> <?php echo htmlspecialchars($award[2]); ?></p>
+    <p><strong>Details:</strong> <?php echo htmlspecialchars($award->detail); ?></p>
   <?php else: ?>
       <h3 class="text-danger">Award not found.</h3>
   <?php endif; ?>

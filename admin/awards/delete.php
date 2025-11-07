@@ -1,13 +1,16 @@
 <?php
-require 'awards.php';
+require '../csvHelper.php';
+require 'award.php';
 
 $name = $_GET['name'] ?? '';
 $year = $_GET['year'] ?? '';
 $awardsFile = '../../data/awards.csv';
-$award = getCSVByTwo($awardsFile, $name, $year);
+$award = csvHelper::getCSVByTwo($awardsFile, $year, $name);
+if($award)
+  $award = new Award($award[0], $award[1], $award[2]);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
-  deleteCSV($awardsFile, $award);
+  csvHelper::deleteCSV($awardsFile, $award->returnAsArray());
   header('Location: index.php');
   exit;
 }
@@ -29,12 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
   <?php if ($award): ?>
     <div class="card bg-secondary text-light mx-auto" style="max-width: 500px;">
       <div class="card-body">
-        <h2 class="card-title">Delete "<?php echo htmlspecialchars($award[1]); ?>"?</h2>
+        <h2 class="card-title">Delete "<?php echo htmlspecialchars($award->title); ?>"?</h2>
         <p class="card-text">Are you sure you want to permanently delete this award? This action cannot be undone.</p>
 
         <form method="POST">
           <button type="submit" name="confirm" class="btn btn-danger me-2">Yes, Delete</button>
-          <a href="detail.php?award=<?php echo $name; ?>&year=<?php echo $year; ?>" class="btn btn-secondary">Cancel</a>
+          <a href="detail.php?award=<?php echo $award->title; ?>&year=<?php echo $award->year; ?>" class="btn btn-secondary">Cancel</a>
         </form>
       </div>
     </div>
