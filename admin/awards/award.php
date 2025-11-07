@@ -2,7 +2,7 @@
     class Award {
         public $year;
         public $title;
-        public $detailt;
+        public $detail;
 
         public function __construct($newYear, $newTitle, $newDetail){
             $this->year = $newYear;
@@ -15,4 +15,5 @@
             return $array;
         }
     }
+
 ?>
