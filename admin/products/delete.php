@@ -1,13 +1,32 @@
 <?php
-require 'products.php';
+// products/delete.php
+require_once __DIR__ . '/../JsonHelper.php';
 
-$name = $_GET['name'] ?? '';
-$product = getProductByName($name);
+$dataFile = __DIR__ . '/../../data/products.json';
+$errors = [];
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
-  deleteProduct($name);
-  header('Location: index.php');
-  exit;
+$name = isset($_REQUEST['name']) ? trim($_REQUEST['name']) : null;
+if ($name === null || $name === '') {
+    http_response_code(400);
+    echo "Product name is required.";
+    exit;
+}
+
+$product = JsonHelper::findByField($dataFile, 'name', $name);
+if ($product === null) {
+    http_response_code(404);
+    echo "Product not found.";
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delete') {
+    $deleted = JsonHelper::deleteByField($dataFile, 'name', $name);
+    if ($deleted) {
+        header('Location: index.php');
+        exit;
+    } else {
+        $errors[] = "Failed to delete product.";
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -24,22 +43,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
 </nav>
 
 <div class="container mt-5">
-  <?php if ($product): ?>
-    <div class="card bg-secondary text-light mx-auto" style="max-width: 500px;">
-      <div class="card-body">
-        <h2 class="card-title">Delete "<?php echo htmlspecialchars($product['name']); ?>"?</h2>
-        <p class="card-text">Are you sure you want to permanently delete this product? This action cannot be undone.</p>
+<?php if (!empty($errors)): ?>
+    <ul style="color:red">
+        <?php foreach ($errors as $e): ?><li><?=htmlspecialchars($e)?></li><?php endforeach; ?>
+    </ul>
+<?php endif; ?>
+<div class="card bg-secondary text-light mx-auto" style="max-width: 500px;">
+  <div class="card-body">
+    <h2 class="card-title">Delete "<?php echo htmlspecialchars($product['name']); ?>"?</h2>
+    <p class="card-text">Are you sure you want to permanently delete this product? This action cannot be undone.</p>
 
-        <form method="POST">
-          <button type="submit" name="confirm" class="btn btn-danger me-2">Yes, Delete</button>
-          <a href="detail.php?name=<?php echo $name?>" class="btn btn-secondary">Cancel</a>
-        </form>
-      </div>
-    </div>
-  <?php else: ?>
-    <h3 class="text-danger mt-5">Product not found.</h3>
-  <?php endif; ?>
+    <form method="post">
+      <input type="hidden" name="action" value="delete">
+      <button type="submit" name="confirm" class="btn btn-danger me-2">Yes, Delete</button>
+      <a href="detail.php?name=<?php echo $name?>" class="btn btn-secondary">Cancel</a>
+</form>
+  </div>
 </div>
 
+
+</div>
 </body>
 </html>

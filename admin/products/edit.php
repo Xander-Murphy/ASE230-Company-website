@@ -1,43 +1,69 @@
 <?php
-require 'products.php';
+require_once __DIR__ . '/../JsonHelper.php';
 
-$name = $_GET['name'] ?? '';
-$product = getProductByName($name);
+$dataFile = __DIR__ . '/../../data/products.json';
 
+// original name from query - this identifies which product we're editing
+$originalName = $_GET['name'] ?? '';
+if ($originalName === '') {
+    die("Product name is required.");
+}
+
+// load product
+$product = JsonHelper::findByField($dataFile, 'name', $originalName);
 if (!$product) {
     die("Product not found.");
 }
 
 $errors = [];
+
 // Pre-fill form values
-$nameVal = $product['name'];
-$descriptionVal = $product['description'];
+$nameVal = $product['name'] ?? '';
+$descriptionVal = $product['description'] ?? '';
 $app1 = $product['applications'][0] ?? '';
 $app2 = $product['applications'][1] ?? '';
 $app3 = $product['applications'][2] ?? '';
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $nameVal = trim($_POST['name'] ?? '');
-  $descriptionVal = trim($_POST['description'] ?? '');
-  $app1 = trim($_POST['app1'] ?? '');
-  $app2 = trim($_POST['app2'] ?? '');
-  $app3 = trim($_POST['app3'] ?? '');
+    // Prefer the hidden original_name if present (safer), otherwise fall back to query param
+    $original_name_hidden = trim((string)($_POST['original_name'] ?? $originalName));
 
-  // Validation
-  if ($nameVal === '') $errors[] = "Name is required.";
-  if ($descriptionVal === '') $errors[] = "Description is required.";
-  if ($app1 === '' || $app2 === '' || $app3 === '') $errors[] = "All three applications are required.";
+    $nameVal = trim((string)($_POST['name'] ?? ''));
+    $descriptionVal = trim((string)($_POST['description'] ?? ''));
+    $app1 = trim((string)($_POST['app1'] ?? ''));
+    $app2 = trim((string)($_POST['app2'] ?? ''));
+    $app3 = trim((string)($_POST['app3'] ?? ''));
 
-  if (empty($errors)) {
-    updateProduct($name, [
-      'name' => $nameVal,
-      'description' => $descriptionVal,
-      'applications' => [$app1, $app2, $app3]
-    ]);
-      header('Location: detail.php?name=' . urlencode($nameVal));
-      exit;
-  }
+    // Validation
+    if ($nameVal === '') $errors[] = "Name is required.";
+    if ($descriptionVal === '') $errors[] = "Description is required.";
+    if ($app1 === '' || $app2 === '' || $app3 === '') $errors[] = "All three applications are required.";
+
+    // If renaming, ensure the new name is not already used by another product
+    if (empty($errors) && $nameVal !== $original_name_hidden) {
+        $existing = JsonHelper::findByField($dataFile, 'name', $nameVal);
+        if ($existing !== null) {
+            $errors[] = "Another product with that name already exists.";
+        }
+    }
+
+    if (empty($errors)) {
+        $newData = [
+            'name' => $nameVal,
+            'description' => $descriptionVal,
+            'applications' => [$app1, $app2, $app3]
+        ];
+
+        $updated = JsonHelper::updateByField($dataFile, 'name', $original_name_hidden, $newData);
+        if ($updated === null) {
+            $errors[] = "Failed to update (item not found while saving).";
+        } else {
+            // Redirect to the detail page for the (possibly renamed) product
+            header('Location: detail.php?name=' . urlencode($nameVal));
+            exit;
+        }
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -54,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   <?php if ($errors): ?>
     <div class="alert alert-danger">
-        <ul>
+        <ul class="mb-0">
             <?php foreach ($errors as $err): ?>
                 <li><?php echo htmlspecialchars($err); ?></li>
             <?php endforeach; ?>
@@ -63,6 +89,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <?php endif; ?>
 
   <form method="POST" class="mx-auto" style="max-width: 600px;">
+      <input type="hidden" name="original_name" value="<?php echo htmlspecialchars($originalName); ?>">
+
       <div class="mb-3">
         <label class="form-label">Product Name</label>
         <input type="text" name="name" class="form-control" value="<?php echo htmlspecialchars($nameVal); ?>" required>
@@ -82,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <div class="text-center">
         <button type="submit" class="btn btn-success me-2">Save Changes</button>
-        <a href="detail.php?name=<?php echo urlencode($name); ?>" class="btn btn-secondary">Cancel</a>
+        <a href="detail.php?name=<?php echo urlencode($originalName); ?>" class="btn btn-secondary">Cancel</a>
       </div>
   </form>
 </div>
