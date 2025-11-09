@@ -1,7 +1,7 @@
 <?php
 // team/create.php
 require_once __DIR__ . '/../JsonHelper.php';
-
+require 'member.php';
 $dataFile = __DIR__ . '/../../data/team.json';
 $errors = [];
 $success = null;
@@ -22,13 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errors)) {
-        $item = [
-            'name' => $name,
-            'title' => $title,
-            'background' => $background,
-        ];
+      $newMember = new Member($name, $title, $background);
+        $item = $newMember->returnAsArray();
         JsonHelper::create($dataFile, $item);
-        header('Location: edit.php?name=' . urlencode($name));
+        header('Location: edit.php?name=' . urlencode($newMember->name));
         $_POST = [];
     }
 }

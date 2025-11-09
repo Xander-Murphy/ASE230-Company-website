@@ -1,7 +1,7 @@
 <?php
 // team/index.php
 require_once __DIR__ . '/../JsonHelper.php';
-
+require 'member.php';
 $dataFile = __DIR__ . '/../../data/team.json';
 $members = JsonHelper::readAll($dataFile);
 ?>
@@ -28,13 +28,14 @@ $members = JsonHelper::readAll($dataFile);
 					<th scope="col">background</th>
 					<th scope="col">Action</th>
 				</tr>
-        <?php foreach ($members as $m): ?>
+        <?php foreach ($members as $m): 
+            $newMember = new Member($m['name'], $m['title'], $m['background']); ?>
             <tr>
-                <td><?=htmlspecialchars($m['name'] ?? '')?></td>
-                <td><?=htmlspecialchars($m['title'] ?? '')?></td>
-                <td><?=htmlspecialchars($m['background'] ?? '')?></td>
+                <td><?=htmlspecialchars($newMember->name ?? '')?></td>
+                <td><?=htmlspecialchars($newMember->title ?? '')?></td>
+                <td><?=htmlspecialchars($newMember->background ?? '')?></td>
                 <td>
-					<a href="detail.php?name=<?php echo urlencode($m['name']); ?>" class="btn btn-primary">Details</a>
+					<a href="detail.php?name=<?php echo urlencode($newMember->name); ?>" class="btn btn-primary">Details</a>
                 </td>
             </tr>
         <?php endforeach; ?>

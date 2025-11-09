@@ -1,5 +1,6 @@
 <?php
-	require 'awards.php';
+	require '../csvHelper.php';
+	require 'award.php';
 	$awardPath = '../../data/awards.csv';
 ?>
 <!DOCTYPE html>
@@ -26,16 +27,18 @@
 		<th scope="col">Action</th>
 	</tr>
 	<?php
-		$csvData = readAllCSV($awardPath);
-		foreach($csvData as $award){
-			if($award[0] != 'Year')
-			echo
-				'<tr>
-					<td> ' . $award[0] . '</td>
-					<td> ' . $award[1] . '</td>
-					<td> ' . $award[2] . '</td>
-					<td><a href="detail.php?award=' . $award[1] . '&year=' . $award[0] . '" class="btn btn-primary">Details</a></td>
-					</tr>';
+		$csvData = csvHelper::readAllCSV($awardPath);
+		foreach($csvData as $data){
+			if($data[0] != 'Year'){
+				$award = new Award($data[0], $data[1], $data[2]);
+				echo
+					'<tr>
+						<td> ' . $award->year . '</td>
+						<td> ' . $award->title . '</td>
+						<td> ' . $award->detail . '</td>
+						<td><a href="detail.php?award=' . $award->title . '&year=' . $award->year . '" class="btn btn-primary">Details</a></td>
+						</tr>';
+			}
 		}
 	?>
 </table>

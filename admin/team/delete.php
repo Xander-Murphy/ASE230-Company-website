@@ -1,7 +1,7 @@
 <?php
 // team/delete.php
 require_once __DIR__ . '/../JsonHelper.php';
-
+require 'member.php';
 $dataFile = __DIR__ . '/../../data/team.json';
 $errors = [];
 
@@ -18,6 +18,8 @@ if ($member === null) {
     echo "Member not found.";
     exit;
 }
+
+$member = new Member($member['name'], $member['title'], $member['background']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delete') {
     $deleted = JsonHelper::deleteByField($dataFile, 'name', $name);
@@ -50,13 +52,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delet
 <?php endif; ?>
 <div class="card bg-secondary text-light mx-auto" style="max-width: 500px;">
   <div class="card-body">
-    <h2 class="card-title">Delete "<?php echo htmlspecialchars($member['name']); ?>"?</h2>
+    <h2 class="card-title">Delete "<?php echo htmlspecialchars($member->name); ?>"?</h2>
     <p class="card-text">Are you sure you want to permanently delete this member? This action cannot be undone.</p>
 
     <form method="post">
       <input type="hidden" name="action" value="delete">
       <button type="submit" name="confirm" class="btn btn-danger me-2">Yes, Delete</button>
-      <a href="detail.php?name=<?php echo $name?>" class="btn btn-secondary">Cancel</a>
+      <a href="detail.php?name=<?php echo $member->name?>" class="btn btn-secondary">Cancel</a>
 </form>
   </div>
 </div>

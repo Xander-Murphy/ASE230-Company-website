@@ -1,5 +1,6 @@
 <?php
-require 'awards.php';
+require '../csvHelper.php';
+require 'award.php';
 $awardsFile = '../../data/awards.csv';
 
 $name = $year = $details = '';
@@ -16,8 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($details === '') $errors[] = "Details are required.";
 
   if (empty($errors)) {
-    $newData = [$year, $name, $details];
-    appendCSV($awardsFile, $newData);
+    $newAward = new Award($year, $name, $details);
+    $newData = $newAward->returnAsArray();
+    csvHelper::appendCSV($awardsFile, $newData);
     header('Location: index.php');
     exit;
   }

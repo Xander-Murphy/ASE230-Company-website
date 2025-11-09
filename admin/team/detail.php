@@ -1,7 +1,7 @@
 <?php
 
 $teamFile = '../../data/team.json';
-
+require 'member.php';
 // Get member name from the query string
 $name = $_GET['name'] ?? '';
 
@@ -12,7 +12,7 @@ $members = json_decode(file_get_contents($teamFile), true) ?? [];
 $member = null;
 foreach ($members as $p) {
   if ($p['name'] === $name) {
-    $member = $p;
+    $member = new Member($p['name'], $p['title'], $p['background']);
     break;
   }
 }
@@ -28,15 +28,15 @@ foreach ($members as $p) {
 
   <nav class="mb-4 mt-3">
     <a class="btn btn-primary" href="index.php" role="button">Index</a>
-    <a href="edit.php?name=<?php echo $name ?>" class="btn btn-primary">Edit</a>
-    <a href="delete.php?name=<?php echo $name ?>" class="btn btn-primary">Delete</a>
+    <a href="edit.php?name=<?php echo $member->name ?>" class="btn btn-primary">Edit</a>
+    <a href="delete.php?name=<?php echo $member->name ?>" class="btn btn-primary">Delete</a>
   </nav>
 
   <div class="container mt-4">
     <?php if ($member): ?>
-      <h2><?php echo htmlspecialchars($member['name']); ?></h2>
-        <p><strong>Title:</strong> <?php echo htmlspecialchars($member['title']); ?></p>
-        <p><strong>Background:</strong> <?php echo htmlspecialchars($member['background']); ?></p>
+      <h2><?php echo htmlspecialchars($member->name); ?></h2>
+        <p><strong>Title:</strong> <?php echo htmlspecialchars($member->title); ?></p>
+        <p><strong>Background:</strong> <?php echo htmlspecialchars($member->background); ?></p>
 
 
       <?php else: ?>
